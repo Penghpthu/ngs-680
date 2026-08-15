@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>讲义 · NGS 2026·680专题精讲班</title>
+<style>
+  @font-face {
+    font-family: "DingTalk JinBuTi";
+    src: url("%E9%92%89%E9%92%89%E8%BF%9B%E6%AD%A5%E4%BD%93DingTalkJinBuTi.ttf") format("truetype");
+    font-weight: 400 900; font-display: swap;
+  }
+  @font-face {
+    font-family: "BN Bergen St";
+    src: url("BNBergenSt-Bold.otf") format("opentype");
+    font-weight: 700; font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --ink-2: #333333;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --line-2: #111111;
+    --accent: #AAFF1F;
+    --maxw: 1180px;
+    --mono: "SF Mono", "JetBrains Mono", "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    margin: 0; min-height: 100%; padding-top: 60px;
+    display: flex; flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: var(--ink); background: #f4f4f4;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: var(--ink); }
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
+
+  /* Top bar —— 与主页完全一致 */
+  .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 30; flex: none; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 20px; background: var(--bg); border-bottom: 1px solid var(--line); transition: background .25s ease, border-color .25s ease; }
+  .bar.scrolled { background: rgba(255,255,255,.72); border-bottom-color: transparent; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 15px; white-space: nowrap; color: inherit; text-decoration: none; transition: opacity .2s ease; }
+  .logo:hover { opacity: .7; }
+  .logo img { height: 24px; width: auto; display: block; }
+  .logo .sep { width: 1px; height: 18px; background: var(--line-2); }
+  .contact { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .contact b { color: var(--ink); font-weight: 700; }
+
+  /* Lecture heading (content area) */
+  .lechead { padding-top: 26px; padding-bottom: 4px; }
+  .lechead .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .8px; color: var(--muted); margin: 0; }
+  .lechead .lectitle { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-weight: 400; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.2; margin: 10px 0 0; }
+
+  /* Slides */
+  .viewer { flex: 1; width: 100%; max-width: 1040px; margin: 0 auto; padding: clamp(16px, 2.6vw, 28px) clamp(20px, 4vw, 40px) 90px; }
+  .slide { position: relative; margin-bottom: clamp(14px, 2.2vw, 22px); }
+  .slide img { display: block; width: 100%; height: auto; border-radius: 10px; }
+  .slide .cap { text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 8px 0 2px; }
+  .slide .badge {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: .4px;
+    color: var(--ink); background: var(--accent); padding: 6px 12px; border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+
+  /* 参考文献 · 推荐阅读 */
+  .reading { margin-top: clamp(22px, 3vw, 36px); padding-top: 22px; border-top: 1px solid var(--line); }
+  .reading h3 { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-weight: 400; font-size: clamp(18px, 2.6vw, 24px); margin: 0 0 16px; }
+  .reading ol { margin: 0; padding-left: 1.4em; }
+  .reading li { font-size: 13.5px; line-height: 1.75; color: var(--ink-2); margin-bottom: 13px; }
+  .reading li::marker { color: var(--muted); }
+  .reading a { color: var(--muted); word-break: break-all; text-decoration: none; border-bottom: 1px solid var(--line); transition: color .2s ease, border-color .2s ease; }
+  .reading a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+
+  .state { text-align: center; color: var(--muted); padding: 90px 20px; }
+  .state .big { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-size: 22px; color: var(--ink-2); margin-bottom: 10px; }
+  .spinner { width: 34px; height: 34px; margin: 0 auto 18px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--ink); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Footer —— 与主页完全一致 */
+  .cr { flex: none; height: 52px; display: flex; align-items: center; background: var(--bg); border-top: 1px solid var(--line);
+        font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .3px; }
+  .cr b { color: var(--ink); font-weight: 700; }
+
+  @media (max-width: 560px) {
+    body { padding-top: 54px; }
+    .bar { height: 54px; gap: 8px; padding: 0 min(4vw, 20px); }
+    .logo { font-size: min(3.4vw, 14px); gap: min(2vw, 10px); }
+    .logo img { height: min(4.6vw, 22px); }
+    .logo .sep { height: min(3.6vw, 16px); }
+    .contact { font-size: min(3vw, 12px); }
+    .cr { height: auto; padding: 16px 0; }
+  }
+  @media (max-width: 380px) {
+    .contact .wx { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="logo" href="index.html" title="返回主页">
+    <img src="logo-light.png" alt="磐石 STUDIO / NGS 工作室" /><span class="sep"></span>680专题精讲班
+  </a>
+  <div class="contact">联系方式<span class="wx">（微信）</span>：<b>18813120778</b></div>
+</header>
+
+<div class="wrap lechead">
+  <div class="eyebrow">2026 · 未来人机交互HCI专题精讲</div>
+  <h2 class="lectitle" id="lecTitle">讲义</h2>
+</div>
+
+<main class="viewer" id="viewer">
+  <div class="state" id="loading">
+    <div class="spinner"></div>
+    <div>正在加载讲义…</div>
+  </div>
+</main>
+
+<footer class="cr">
+  <div class="wrap">© 2026 NGS磐石STUDIO 版权所有 · Design by PP老师 </div>
+</footer>
+
+<script>
+  /* 与 index.html 保持一致的访问密钥 */
+  const ACCESS_KEY = "ngs2026680";
+
+  /* 各讲元信息：dir 为图片目录，title 为讲次标题，assignment 为作业图片文件名。 */
+  const LECTURES = {
+    "1": {
+      title: "第一讲 · 导论：从技术热点到研究问题",
+      dir: "handouts/lecture-01/",
+      assignment: "645.png",
+      readings: [
+        { text: "Wobbrock, J. O., & Kientz, J. A. Research Contributions in Human-Computer Interaction.", url: "https://doi.org/10.1145/2907069" },
+        { text: "Zimmerman, J., Forlizzi, J., & Evenson, S. Research through Design as a Method for Interaction Design Research in HCI.", url: "https://doi.org/10.1145/1240624.1240704" },
+        { text: "Zindulka, T. et al. The AI Memory Gap: Users Misremember What They Created With AI or Without. CHI 2026.", url: "https://doi.org/10.1145/3772318.3791494" },
+        { text: "Johnson, J. et al. \u2018I Don\u2019t Trust it, but I Use it\u2019: Navigating Trust, Privacy, and Identity in Disabled People\u2019s Use of Generative AI. CHI 2026.", url: "https://doi.org/10.1145/3772318.3790652" },
+        { text: "Lee, H.-P. et al. The Impact of Generative AI on Critical Thinking. CHI 2025.", url: "https://doi.org/10.1145/3706598.3713778" },
+        { text: "Chen, Y. et al. The Engagement-Prolonging Designs Teens Encounter on Very Large Online Platforms. CHI 2026.", url: "https://doi.org/10.1145/3772318.3790393" }
+      ]
+    }
+  };
+
+  const params = new URLSearchParams(location.search);
+  const lecId = params.get('lec') || "1";
+  const meta = LECTURES[lecId];
+
+  const viewer = document.getElementById('viewer');
+  const titleEl = document.getElementById('lecTitle');
+
+  if (sessionStorage.getItem('lec_access') !== ACCESS_KEY) {
+    location.replace('index.html');
+  } else if (!meta) {
+    titleEl.textContent = "讲义不存在";
+    viewer.innerHTML = '<div class="state"><div class="big">讲义不存在</div><div>未找到对应讲次，请返回主页重新选择。</div></div>';
+  } else {
+    titleEl.textContent = meta.title;
+    document.title = meta.title + " · 680专题精讲班";
+    loadAndRender(meta);
+  }
+
+  function tryImg(url){
+    return new Promise(res => {
+      const im = new Image();
+      im.onload = () => res(true);
+      im.onerror = () => res(false);
+      im.src = url;
+    });
+  }
+
+  async function collectSlides(dir){
+    // 1) 优先读取清单文件 slides.json（支持中文/不规则文件名）
+    try {
+      const r = await fetch(dir + 'slides.json', { cache: 'no-store' });
+      if (r.ok) {
+        const arr = await r.json();
+        if (Array.isArray(arr) && arr.length) {
+          return arr.map(n => /^https?:|^\//.test(n) ? n : dir + n);
+        }
+      }
+    } catch (e) { /* 无清单则回退到顺序探测 */ }
+
+    // 2) 顺序探测：1.jpg / 01.jpg / 001.jpg（支持 jpg/jpeg/png/webp）
+    const exts = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'PNG'];
+    const out = [];
+    for (let n = 1; n <= 300; n++) {
+      let found = null;
+      const names = [String(n), String(n).padStart(2, '0'), String(n).padStart(3, '0')];
+      for (const nm of names) {
+        for (const e of exts) {
+          const u = dir + nm + '.' + e;
+          if (await tryImg(u)) { found = u; break; }
+        }
+        if (found) break;
+      }
+      if (found) out.push(found);
+      else if (n > 1) break;
+      else break;
+    }
+    return out;
+  }
+
+  async function loadAndRender(meta){
+    const slides = await collectSlides(meta.dir);
+
+    if (!slides.length) {
+      viewer.innerHTML = '<div class="state"><div class="big">讲义内容整理中</div><div>本讲讲义正在上传，敬请期待。</div></div>';
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    slides.forEach((src, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'slide';
+      const isAssign = meta.assignment && src.endsWith(meta.assignment);
+      if (isAssign) {
+        const badge = document.createElement('div');
+        badge.className = 'badge'; badge.textContent = '作业';
+        wrap.appendChild(badge);
+      }
+      const img = document.createElement('img');
+      img.src = src; img.loading = 'lazy'; img.alt = isAssign ? '本讲作业' : ('第 ' + (i + 1) + ' 页');
+      const cap = document.createElement('div');
+      cap.className = 'cap';
+      cap.textContent = (i + 1) + ' / ' + slides.length + (isAssign ? ' · 作业' : '');
+      wrap.appendChild(img); wrap.appendChild(cap);
+      frag.appendChild(wrap);
+    });
+
+    // 作业末尾：参考文献 · 推荐阅读
+    if (Array.isArray(meta.readings) && meta.readings.length) {
+      const sec = document.createElement('div');
+      sec.className = 'reading';
+      const h = document.createElement('h3');
+      h.textContent = '推荐阅读文献';
+      const ol = document.createElement('ol');
+      meta.readings.forEach(r => {
+        const li = document.createElement('li');
+        li.textContent = r.text + ' ';
+        const a = document.createElement('a');
+        a.href = r.url; a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = r.url;
+        li.appendChild(a);
+        ol.appendChild(li);
+      });
+      sec.appendChild(h); sec.appendChild(ol);
+      frag.appendChild(sec);
+    }
+
+    viewer.innerHTML = '';
+    viewer.appendChild(frag);
+  }
+
+  // 滚动时顶部导航栏背景变透明
+  const bar = document.querySelector('.bar');
+  const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>

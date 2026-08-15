@@ -86,6 +86,34 @@
   .hl { color: var(--ink); background: linear-gradient(transparent 55%, var(--accent) 55%); padding: 0 2px;
         -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
+  /* "查看讲义" button (only on lectures already taught) */
+  .lec-btn {
+    margin-top: auto; align-self: flex-start;
+    font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .3px;
+    color: var(--ink); background: var(--accent); border: none; border-radius: 999px;
+    padding: 9px 16px; cursor: pointer; opacity: 0;
+    transition: opacity .16s ease, background .2s ease;
+  }
+  .card:hover .lec-btn { opacity: 1; transition: opacity .24s ease .42s, background .2s ease; }
+  .lec-btn:hover { background: #fff; }
+
+  /* Key modal */
+  .modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center;
+           padding: 24px; background: rgba(10,10,10,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .modal.open { display: flex; }
+  .modal-box { width: 100%; max-width: 380px; background: #fff; border-radius: 20px; padding: 30px 28px; box-shadow: 0 30px 80px rgba(0,0,0,.3); }
+  .modal-box h3 { margin: 0; font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-weight: 400; font-size: 23px; letter-spacing: .5px; }
+  .modal-box p { margin: 10px 0 18px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .modal-box input { width: 100%; font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); border-radius: 12px; outline: none; }
+  .modal-box input:focus { border-color: var(--ink); }
+  .modal-err { min-height: 18px; margin: 8px 2px 0; font-size: 12px; color: #d23; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .modal-actions button { flex: 1; font-size: 14px; font-weight: 700; padding: 11px 0; border-radius: 999px; cursor: pointer; border: none; transition: background .2s ease; }
+  .mb-cancel { background: #E4E4E4; color: var(--ink); }
+  .mb-cancel:hover { background: #fff; }
+  .mb-ok { background: var(--accent); color: var(--ink); }
+  .mb-ok:hover { background: #fff; }
+
   .card:hover { z-index: 40; }
   .card:hover .face {
     transform: translateY(-28px) scale(1.3);
@@ -137,6 +165,7 @@
     .card:hover .num::before { content: "第" counter(lec) "讲"; font-size: 14px; color: var(--muted); }
     .ti { opacity: 1; margin-top: 10px; font-size: 18px; line-height: 1.4; }
     .de { opacity: 1; margin-top: 8px; font-size: 13px; }
+    .lec-btn { opacity: 1; margin-top: 14px; }
 
     .axis { display: none; }
   }
@@ -183,7 +212,7 @@
 
     <div class="tl">
       <div class="deck">
-        <article class="card" style="--n:0"><div class="face"><span class="num">01</span><h3 class="ti">导论：从技术热点到<span class="hl">研究问题</span></h3><p class="de">对齐对于680考试的认识，并掌握把热点技术拆解成研究问题与论文观点的能力。</p></div></article>
+        <article class="card" data-ready data-lec="1" style="--n:0"><div class="face"><span class="num">01</span><h3 class="ti">导论：从技术热点到<span class="hl">研究问题</span></h3><p class="de">对齐对于680考试的认识，并掌握把热点技术拆解成研究问题与论文观点的能力。</p><button class="lec-btn" data-lec="1">查看讲义></button></div></article>
         <article class="card" style="--n:1"><div class="face"><span class="num">02</span><h3 class="ti">情感计算：机器能<span class="hl">理解情绪</span>吗</h3><p class="de">计算机如何感知、识别、推断并响应人的情绪。</p></div></article>
         <article class="card" style="--n:2"><div class="face"><span class="num">03</span><h3 class="ti">空间计算：<span class="hl">世界即界面</span></h3><p class="de">从Spatial Interaction理解界面从屏幕走进空间，“世界即操作系统”。</p></div></article>
         <article class="card" style="--n:3"><div class="face"><span class="num">04</span><h3 class="ti"><span class="hl">环境智能</span>与平静技术</h3><p class="de">计算应该自然融入生活，人不再意识到自己正在使用计算机。</p></div></article>
@@ -217,6 +246,60 @@
 <footer class="cr">
   <div class="wrap">© 2026 NGS磐石STUDIO 版权所有 · Design by PP老师 </div>
 </footer>
+
+<div class="modal" id="keyModal" aria-hidden="true">
+  <div class="modal-box">
+    <h3>输入密钥</h3>
+    <p>该讲义仅对付费学员开放，如有需要请添加学姐微信（18813120778）获取密钥。</p>
+    <input id="keyInput" type="password" placeholder="请输入密钥" autocomplete="off" />
+    <div class="modal-err" id="keyErr"></div>
+    <div class="modal-actions">
+      <button class="mb-cancel" id="keyCancel">取消</button>
+      <button class="mb-ok" id="keyOk">进入讲义</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* 讲义访问密钥（在此自定义修改；handout.html 中的同名常量需保持一致）。
+     说明：这是前端轻量校验，可被技术手段绕过，仅用于对学员的普通访问门槛。 */
+  const ACCESS_KEY = "ngs2026680";
+
+  const modal = document.getElementById('keyModal');
+  const input = document.getElementById('keyInput');
+  const errEl = document.getElementById('keyErr');
+  let targetLec = "1";
+
+  function openModal(lec){
+    targetLec = lec || "1";
+    errEl.textContent = ""; input.value = "";
+    modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => input.focus(), 50);
+  }
+  function closeModal(){
+    modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+  }
+  function submitKey(){
+    if (input.value.trim() === ACCESS_KEY){
+      sessionStorage.setItem('lec_access', ACCESS_KEY);
+      location.href = 'handout.html?lec=' + encodeURIComponent(targetLec);
+    } else {
+      errEl.textContent = '密钥不正确，请重新输入。';
+      input.focus(); input.select();
+    }
+  }
+
+  document.querySelectorAll('.lec-btn').forEach(b => {
+    b.addEventListener('click', e => { e.stopPropagation(); openModal(b.dataset.lec); });
+  });
+  document.getElementById('keyOk').addEventListener('click', submitKey);
+  document.getElementById('keyCancel').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitKey();
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
 
 </body>
 </html>
