@@ -39,7 +39,7 @@
     -webkit-font-smoothing: antialiased;
   }
   ::selection { background: var(--accent); color: var(--ink); }
-  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
 
   /* Top bar */
   .bar { flex: none; height: 60px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--line); }
@@ -49,7 +49,7 @@
 
   /* Stage (fills viewport, no scroll) */
   .stage { flex: 1; min-height: 0; display: flex; }
-  .stagein { height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 30px 0 22px; }
+  .stagein { height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-top: 30px; padding-bottom: 22px; }
 
   /* Title */
   .eyebrow { font-family: var(--mono); font-size: 15px; letter-spacing: 1.2px; color: var(--ink-2); text-transform: uppercase; }
@@ -75,8 +75,9 @@
     transform-origin: bottom center; z-index: 1;
     transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .35s, background .35s;
   }
-  .num { flex: none; font-family: var(--mono); font-weight: 800; font-size: 0; color: var(--ink); margin: -8px 0 0 -8px; }
-  .num::before { content: counter(lec, decimal-leading-zero); font-size: 18px; }
+  .num { flex: none; font-family: var(--mono); font-weight: 800; font-size: 0; color: var(--ink); margin: -8px 0 0 -16px; transition: margin .32s cubic-bezier(.2,.8,.2,1); }
+  .num::before { content: counter(lec, decimal-leading-zero); font-size: clamp(11px, 1.4vw, 18px); }
+  .card:hover .num { margin: 0; }
   .card:hover .num::before { content: "第" counter(lec) "讲"; }
   .ti { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; margin: 18px 0 0; font-size: 21px; font-weight: 400; letter-spacing: 0; line-height: 1.35; opacity: 0; transition: opacity .16s ease; }
   .de { margin: 14px 0 0; font-size: 12px; color: var(--ink-2); line-height: 1.6; opacity: 0; transition: opacity .16s ease; }
@@ -108,24 +109,49 @@
         font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .3px; }
   .cr b { color: var(--ink); font-weight: 700; }
 
+  /* ---------- Tablet / mobile: vertical card list ---------- */
   @media (max-width: 860px) {
     body { overflow: auto; }
     .stage { flex: none; }
-    .stagein { display: block; padding: 24px 0; }
-    .deck { display: flex; flex-direction: column; gap: 8px; height: auto; margin-top: 22px; }
+    .stagein { display: block; padding-top: 22px; padding-bottom: 10px; }
+    h1 { margin: 18px 0 12px; }
+
+    .tl { margin-top: 26px; }
+    .deck { display: flex; flex-direction: column; gap: 10px; height: auto; counter-reset: lec; }
     .card { position: static; width: 100%; height: auto; left: auto; }
     .face,
     .deck .card:nth-child(-n+3) .face,
     .deck .card:nth-child(n+16) .face {
       position: static; width: auto !important; height: auto !important;
       transform: none !important; overflow: visible; border-radius: 16px;
-      background: #E4E4E4; box-shadow: 0 6px 18px rgba(0,0,0,.05);
+      background: #E4E4E4; box-shadow: 0 5px 14px rgba(0,0,0,.05);
+      padding: 18px 20px;
     }
-    .card:hover .face { box-shadow: 0 12px 28px rgba(0,0,0,.1); }
-    .ti { opacity: 1; margin-top: 14px; font-size: 17px; }
-    .de { opacity: 1; }
-    .num::before { content: "第" counter(lec) "讲"; }
+    /* No pop / scale on touch */
+    .card:hover .face { transform: none !important; background: #E4E4E4; box-shadow: 0 5px 14px rgba(0,0,0,.05); }
+
+    .num { font-size: 0; margin: 0; }
+    .num::before,
+    .card:hover .num::before { content: "第" counter(lec) "讲"; font-size: 14px; color: var(--muted); }
+    .ti { opacity: 1; margin-top: 10px; font-size: 18px; line-height: 1.4; }
+    .de { opacity: 1; margin-top: 8px; font-size: 13px; }
+
     .axis { display: none; }
+  }
+
+  /* ---------- Small phones ---------- */
+  @media (max-width: 560px) {
+    .bar { height: 54px; }
+    .logo { font-size: 14px; gap: 10px; }
+    .logo img { height: 22px; }
+    .stagein { padding-top: 18px; padding-bottom: 8px; }
+    .eyebrow { font-size: 12.5px; letter-spacing: .6px; }
+    h1 { margin: 14px 0 10px; }
+    .sub br { display: none; }
+    .tl { margin-top: 22px; }
+    .face { padding: 16px 18px; }
+    .ti { font-size: 17px; }
+    .cr { height: auto; padding: 16px 0; }
   }
 </style>
 </head>
