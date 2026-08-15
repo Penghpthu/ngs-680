@@ -42,10 +42,12 @@
   .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
 
   /* Top bar */
-  .bar { flex: none; height: 60px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--line); }
+  .bar { flex: none; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 20px; border-bottom: 1px solid var(--line); }
   .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 15px; }
   .logo img { height: 24px; width: auto; display: block; }
   .logo .sep { width: 1px; height: 18px; background: var(--line-2); }
+  .contact { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .contact b { color: var(--ink); font-weight: 700; }
 
   /* Stage (fills viewport, no scroll) */
   .stage { flex: 1; min-height: 0; display: flex; }
@@ -141,9 +143,10 @@
 
   /* ---------- Small phones ---------- */
   @media (max-width: 560px) {
-    .bar { height: 54px; }
+    .bar { height: 54px; gap: 10px; }
     .logo { font-size: 14px; gap: 10px; }
     .logo img { height: 22px; }
+    .contact { font-size: 11px; }
     .stagein { padding-top: 18px; padding-bottom: 8px; }
     .eyebrow { font-size: 12.5px; letter-spacing: .6px; }
     h1 { margin: 14px 0 10px; }
@@ -161,6 +164,7 @@
   <div class="logo">
     <img src="logo-light.png" alt="磐石 STUDIO / NGS 工作室" /><span class="sep"></span>680专题精讲班
   </div>
+  <div class="contact">联系方式（微信）：<b>18813120778</b></div>
 </header>
 
 <main class="stage">
