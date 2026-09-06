@@ -53,7 +53,18 @@
   /* Lecture heading (content area) */
   .lechead { padding-top: 26px; padding-bottom: 4px; }
   .lechead .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .8px; color: var(--muted); margin: 0; }
-  .lechead .lectitle { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-weight: 400; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.2; margin: 10px 0 0; }
+  .lechead-row { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-top: 10px; }
+  .lechead .lectitle { font-family: "DingTalk JinBuTi", -apple-system, "PingFang SC", sans-serif; font-weight: 400; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.2; margin: 0; }
+  .replay-btn {
+    display: none; flex: none;
+    font-family: var(--mono); font-size: 14px; font-weight: 800; letter-spacing: .3px;
+    color: var(--ink); background: var(--accent); text-decoration: none;
+    padding: 11px 20px; border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .replay-btn.show { display: inline-flex; align-items: center; }
+  .replay-btn:hover { background: #fff; }
 
   /* Slides */
   .viewer { flex: 1; width: 100%; max-width: 1040px; margin: 0 auto; padding: clamp(16px, 2.6vw, 28px) clamp(20px, 4vw, 40px) 90px; }
@@ -111,7 +122,10 @@
 
 <div class="wrap lechead">
   <div class="eyebrow">2026 · 未来人机交互HCI专题精讲</div>
-  <h2 class="lectitle" id="lecTitle">讲义</h2>
+  <div class="lechead-row">
+    <h2 class="lectitle" id="lecTitle">讲义</h2>
+    <a class="replay-btn" id="replayBtn" target="_blank" rel="noopener">查看回放></a>
+  </div>
 </div>
 
 <main class="viewer" id="viewer">
@@ -135,6 +149,7 @@
       title: "第一讲 · 导论：从技术热点到研究问题",
       dir: "handouts/lecture-01/",
       assignment: "645.png",
+      replay: "https://meeting.tencent.com/crm/29V46OQ963",
       readings: [
         { text: "Wobbrock, J. O., & Kientz, J. A. Research Contributions in Human-Computer Interaction.", url: "https://doi.org/10.1145/2907069" },
         { text: "Zimmerman, J., Forlizzi, J., & Evenson, S. Research through Design as a Method for Interaction Design Research in HCI.", url: "https://doi.org/10.1145/1240624.1240704" },
@@ -148,6 +163,7 @@
       title: "第二讲 · 情感计算：机器能理解情绪吗",
       dir: "handouts/lecture-02/",
       assignment: "671.png",
+      replay: "https://meeting.tencent.com/crm/NAV400Qrc2",
       readings: [
         { text: "Kovacevic, N., et al. (2024). On Multimodal Emotion Recognition for Human-Chatbot Interaction in the Wild. ICMI \u201924. 阅读抓手：真实长期对话、领域差异与个性化。", url: "https://siplab.org/projects/Multimodal_Emotion_Recognition_for_Chatbots" },
         { text: "Lian, Z., et al. (2025). MER 2025: When Affective Computing Meets Large Language Models. 阅读抓手：从固定标签到细粒度、描述式理解。", url: "https://arxiv.org/html/2504.19423v2" },
@@ -161,6 +177,7 @@
       title: "第三讲 · 空间计算：世界即界面",
       dir: "handouts/lecture-03/",
       assignment: "700.png",
+      replay: "https://meeting.tencent.com/ctm/KzAGGrm698",
       readings: [
         { text: "Dogan, M. D., et al. (2024). Making the Analog World Interactable with XR-Objects. UIST 2024. 阅读抓手：物体中心交互、分割 + SLAM + MLLM + 世界空间菜单。", url: "https://research.google/blog/augmented-object-intelligence-with-xr-objects/" },
         { text: "Apple. Design for Spatial Input (WWDC23). 阅读抓手：眼动聚焦、手势确认、舒适性与多模态输入。", url: "https://developer.apple.com/videos/play/wwdc2023/10073/" },
@@ -168,6 +185,20 @@
         { text: "清华大学未来实验室，“人场交互”研究项目。阅读抓手：身份、位置、距离、位移、朝向与动态信息显示。", url: "https://thfl.tsinghua.edu.cn/kxyj/zxjg/rjwrhjqqyts/yjxm/zzjx/rcjh.htm" },
         { text: "Yao, Y., et al. (2019). Big Screen Is Watching Me? A Study on the Attractiveness and Reading Efficiency of a Rotating Screen. HCII 2019. 阅读抓手：大屏、用户位置与动态视觉呈现。", url: "https://dl.acm.org/doi/abs/10.1007/978-3-030-22577-3_31" },
         { text: "Meta AI. Inside Aria Gen 2 (2025). 阅读抓手：VIO、眼动、手部跟踪、第一人称感知与研究设备边界。", url: "https://ai.meta.com/blog/aria-gen-2-research-glasses-under-the-hood-reality-labs/" }
+      ]
+    },
+    "4": {
+      title: "第四讲 · 环境智能与平静技术",
+      dir: "handouts/lecture-04/",
+      assignment: "727.png",
+      replay: "https://meeting.tencent.com/crm/ldX6ZWxm98",
+      readings: [
+        { text: "Weiser, M. (1991). The Computer for the 21st Century. \u2014 第三波计算与 tabs/pads/boards", url: "https://www.lri.fr/~mbl/Stanford/CS477/papers/Weiser-SciAm.pdf" },
+        { text: "AmbientROOM \u2014 建筑空间中的环境媒介", url: "https://dl.acm.org/doi/pdf/10.1145/286498.286652" },
+        { text: "Synthetic Sensors \u2014 通用多模态感知", url: "https://dl.acm.org/doi/pdf/10.1145/3025453.3025773" },
+        { text: "Ubicoustics \u2014 声音活动识别", url: "https://dl.acm.org/doi/10.1145/3242587.3242609" },
+        { text: "AwareAuto \u2014 多模态智能家居编程；预印本", url: "https://arxiv.org/abs/2408.12687" },
+        { text: "HomeBench \u2014 LLM 控制智能家居的有效/无效指令基准", url: "https://aclanthology.org/2025.acl-long.597/" }
       ]
     }
   };
@@ -178,6 +209,7 @@
 
   const viewer = document.getElementById('viewer');
   const titleEl = document.getElementById('lecTitle');
+  const replayBtn = document.getElementById('replayBtn');
 
   if (sessionStorage.getItem('lec_access') !== ACCESS_KEY) {
     location.replace('index.html');
@@ -187,6 +219,10 @@
   } else {
     titleEl.textContent = meta.title;
     document.title = meta.title + " · 680专题精讲班";
+    if (meta.replay) {
+      replayBtn.href = meta.replay;
+      replayBtn.classList.add('show');
+    }
     loadAndRender(meta);
   }
 
@@ -267,11 +303,13 @@
       const ol = document.createElement('ol');
       meta.readings.forEach(r => {
         const li = document.createElement('li');
-        li.textContent = r.text + ' ';
-        const a = document.createElement('a');
-        a.href = r.url; a.target = '_blank'; a.rel = 'noopener';
-        a.textContent = r.url;
-        li.appendChild(a);
+        li.textContent = r.text + (r.url ? ' ' : '');
+        if (r.url) {
+          const a = document.createElement('a');
+          a.href = r.url; a.target = '_blank'; a.rel = 'noopener';
+          a.textContent = r.url;
+          li.appendChild(a);
+        }
         ol.appendChild(li);
       });
       sec.appendChild(h); sec.appendChild(ol);
