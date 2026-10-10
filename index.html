@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NGS 2026·680专题精讲班</title>
-<meta name="description" content="2026 HCI 专题班：18 讲专题，沿 8–12 月时间轴展开。" />
+<meta name="description" content="2026 HCI 专题班：17 讲专题，沿 8–12 月时间轴展开。" />
 <style>
   @font-face {
     font-family: "DingTalk JinBuTi";
@@ -63,7 +63,7 @@
   /* Timeline */
   .tl { position: relative; }
   /* Square cards, evenly overlapped so every card exposes the same width */
-  .deck { position: relative; height: 300px; --card: 300px; --step: calc((100% - var(--card)) / 17); counter-reset: lec; }
+  .deck { position: relative; height: 300px; --card: 300px; --step: calc((100% - var(--card)) / 16); counter-reset: lec; }
   .card {
     position: absolute; bottom: 0; height: var(--card); width: var(--step);
     left: calc(var(--step) * var(--n)); cursor: pointer; counter-increment: lec;
@@ -125,7 +125,7 @@
 
   /* Keep edge cards' pop-up inside the viewport */
   .deck .card:nth-child(-n+3) .face { transform-origin: bottom left; }
-  .deck .card:nth-child(n+16) .face { transform-origin: bottom right; }
+  .deck .card:nth-child(n+15) .face { transform-origin: bottom right; }
 
   /* Axis (below the deck) */
   .axis { position: relative; height: 46px; margin-top: 10px; }
@@ -151,7 +151,7 @@
     .card { position: static; width: 100%; height: auto; left: auto; }
     .face,
     .deck .card:nth-child(-n+3) .face,
-    .deck .card:nth-child(n+16) .face {
+    .deck .card:nth-child(n+15) .face {
       position: static; width: auto !important; height: auto !important;
       transform: none !important; overflow: visible; border-radius: 16px;
       background: #E4E4E4; box-shadow: 0 5px 14px rgba(0,0,0,.05);
@@ -219,17 +219,16 @@
         <article class="card" data-ready data-lec="5" style="--n:4"><div class="face"><span class="num">05</span><h3 class="ti">多感官交互：视觉之后的<span class="hl">触觉</span></h3><p class="de">信息如何被身体感知。“AI for Haptics and Haptics for AI.”</p><button class="lec-btn" data-lec="5">查看讲义></button></div></article>
         <article class="card" data-ready data-lec="6" style="--n:5"><div class="face"><span class="num">06</span><h3 class="ti"><span class="hl">身体增强</span>：可穿戴与电子皮肤</h3><p class="de">从可穿戴wearable到增强身体能力Human Augmentation。</p><button class="lec-btn" data-lec="6">查看讲义></button></div></article>
         <article class="card" data-ready data-lec="7" style="--n:6"><div class="face"><span class="num">07</span><h3 class="ti">脑机接口：走向<span class="hl">无界面</span></h3><p class="de">交互链条缩短，追问认知数据的归属。</p><button class="lec-btn" data-lec="7">查看讲义></button></div></article>
-        <article class="card" style="--n:7"><div class="face"><span class="num">08</span><h3 class="ti">阶段性<span class="hl">仿真模拟</span>与讲解</h3><p class="de">综合调用前七讲所学，进行仿真模拟。</p></div></article>
-        <article class="card" style="--n:8"><div class="face"><span class="num">09</span><h3 class="ti">AI Native：走向<span class="hl">意图驱动</span></h3><p class="de">Agent 之后还有没有 APP。</p></div></article>
-        <article class="card" style="--n:9"><div class="face"><span class="num">10</span><h3 class="ti">Human-AI：工具还是<span class="hl">同事</span></h3><p class="de">自动化层级与信任校准，协调人机智能。</p></div></article>
-        <article class="card" style="--n:10"><div class="face"><span class="num">11</span><h3 class="ti">HRI：机器人为何要<span class="hl">会做人</span></h3><p class="de">可读、可预测与拟人化，性能 ≠ 体验。</p></div></article>
+        <article class="card" style="--n:7"><div class="face"><span class="num">08</span><h3 class="ti">论文写作与<span class="hl">应试提升</span></h3><p class="de">掌握论文写作范式，针对 680 考试提升应试能力。</p></div></article>
+        <article class="card" style="--n:8"><div class="face"><span class="num">09</span><h3 class="ti">AI Native：<span class="hl">Agent 之后</span></h3><p class="de">意图驱动的交互，Agent 之后还有没有 APP。</p></div></article>
+        <article class="card" style="--n:9"><div class="face"><span class="num">10</span><h3 class="ti">Automation Bias：<span class="hl">过度信任</span></h3><p class="de">自动化偏见，信任校准与人机协同。</p></div></article>
+        <article class="card" style="--n:10"><div class="face"><span class="num">11</span><h3 class="ti">HRI 与<span class="hl">具身智能</span>专题</h3><p class="de">机器人如何可读、可预测地走进物理世界。</p></div></article>
         <article class="card" style="--n:11"><div class="face"><span class="num">12</span><h3 class="ti">Social AI：进入<span class="hl">社会关系</span></h3><p class="de">从 CASA 理论，人会否把 AI 当社会主体。</p></div></article>
-        <article class="card" style="--n:12"><div class="face"><span class="num">13</span><h3 class="ti"><span class="hl">包容性</span> HCI 与适老化</h3><p class="de">从 Design for 到 Design with、by。</p></div></article>
-        <article class="card" style="--n:13"><div class="face"><span class="num">14</span><h3 class="ti">注意力与<span class="hl">反人本设计</span></h3><p class="de">以人为中心，不等于对人有益。</p></div></article>
-        <article class="card" style="--n:14"><div class="face"><span class="num">15</span><h3 class="ti">AI 伦理：进入<span class="hl">界面</span></h3><p class="de">伦理应被设计成前台交互。</p></div></article>
-        <article class="card" style="--n:15"><div class="face"><span class="num">16</span><h3 class="ti">跨文化：真的<span class="hl">以人为本</span></h3><p class="de">AI并非中立，直面文化语境差异。</p></div></article>
-        <article class="card" style="--n:16"><div class="face"><span class="num">17</span><h3 class="ti"><span class="hl">推辨设计</span>与未来 HCI</h3><p class="de">Futures Cone，有逻辑地预测未来。</p></div></article>
-        <article class="card" style="--n:17"><div class="face"><span class="num">18</span><h3 class="ti">2035：<span class="hl">界面</span>还存在吗</h3><p class="de">形成自己的未来论述。</p></div></article>
+        <article class="card" style="--n:12"><div class="face"><span class="num">13</span><h3 class="ti">适老化、无障碍与<span class="hl">包容性</span>HCI</h3><p class="de">从 Design for 到 Design with、by。</p></div></article>
+        <article class="card" style="--n:13"><div class="face"><span class="num">14</span><h3 class="ti">AI 伦理：从原则进入<span class="hl">界面</span></h3><p class="de">伦理不止于原则，更应被设计成前台交互。</p></div></article>
+        <article class="card" style="--n:14"><div class="face"><span class="num">15</span><h3 class="ti">跨文化 HCI：真的<span class="hl">以人为本</span></h3><p class="de">AI 并非中立，直面文化语境差异。</p></div></article>
+        <article class="card" style="--n:15"><div class="face"><span class="num">16</span><h3 class="ti"><span class="hl">推辨设计</span>与未来 HCI</h3><p class="de">Futures Cone，有逻辑地预测未来。</p></div></article>
+        <article class="card" style="--n:16"><div class="face"><span class="num">17</span><h3 class="ti">作业讲解与<span class="hl">考前提示</span></h3><p class="de">作业串讲与重点回顾，冲刺 680 考试。</p></div></article>
       </div>
 
       <div class="axis">
